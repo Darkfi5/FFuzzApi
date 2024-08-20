@@ -43,7 +43,7 @@ FFuzzApi --help
 http://www.baidu.com/webUi/info/adasda.js</br>而我们js白名单主域名列表whitelist.txt中存在baidu.com这个主域名，后面才会去请求这个js，寻找敏感api。
 这一步是为了排除掉与本次漏洞挖掘无关的js文件，降低误报，</br>
 2、使用指定域名+命中规则Api进行fuzz，如果存在后台ApiFuzz，建议添加header头认证信息，默认使用POST请求，请求体默认为json格式的空字符，用户可以自定义，注意请求体参数若需要双引号，需要添加\\进行转移。如 --data {\\\"id\\\":\\\"1\\\"}</br>
-3、前期有一些步骤还可以进行优化，笔者也在结合自身漏洞挖掘经验，不断完善工具。</br>
+3、前期有一些步骤还可以集成并自动化，同时有一些特殊挖掘场景也会在使用中不断完善、更新。</br>
 
 <b>推荐使用FFuzzApi+Enscan+JsFinder效果更佳</b>
 
