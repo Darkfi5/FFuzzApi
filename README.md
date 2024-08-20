@@ -78,7 +78,8 @@ http://www.baidu.com/webUi/info/adasda.js</br>而我们js白名单主域名列�
 
 ### 运行
 
-- ![image](https://github.com/user-attachments/assets/8ab7c99b-f635-4870-9d79-71751bc20201)
+- ![image](https://github.com/user-attachments/assets/008d9ead-6152-4688-82c1-8d5e60a50c0b)
+
 - ![image](https://github.com/user-attachments/assets/05a16b8a-1c40-45c7-978a-2f215cfda691)
 
 ## 贡献
