@@ -76,6 +76,9 @@ http://www.baidu.com/webUi/info/adasda.js</br>而我们js白名单主域名列�
 - result/api [存储了所有命中规则的api结果文件]
 - result/FuzzApi [存储了命中敏感信息规则的结果文件]
 
+### 运行展示
+
+
 ## 贡献
 
 欢迎贡献！如果你发现任何漏洞或者有功能需求，请提交一个拉取请求（pull request）或者创建一个问题（issue）。
