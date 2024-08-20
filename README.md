@@ -1,5 +1,6 @@
 # FFuzzApi
 协助安全研究人员发现应用程序中可能存在的风险<br>
+[![Author](https://img.shields.io/badge/author-DarkFi5-blue.svg)](https://github.com/DarkFi5)
 [![GitHub release](https://img.shields.io/github/release/DarkFi5/FFuzzApi.svg)](https://github.com/DarkFi5/FFuzzApi/releases)
 [![GitHub stars](https://img.shields.io/github/stars/DarkFi5/FFuzzApi.svg)](https://github.com/DarkFi5/FFuzzApi/stargazers)
 
