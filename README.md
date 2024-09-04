@@ -58,6 +58,7 @@ http://www.baidu.com/webUi/info/adasda.js</br>而我们js白名单主域名列�
 3、前期有一些步骤还可以集成并自动化，同时有一些特殊挖掘场景也会在使用中不断完善、更新。</br>
 
 <b>推荐使用FFuzzApi+Enscan+JsFinder效果更佳</b>
+<b>同时作者也在二开Urlfinder，旨在与将前期发现js->获取敏感api->定制化扫描api，让挖掘漏洞更简单、更方便！</b>
 
 
 ## 配置
