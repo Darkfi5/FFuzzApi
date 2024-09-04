@@ -8,6 +8,20 @@
 
 FFuzzApi 是一个强大的命令行工具，旨在帮助安全研究人员和渗透测试人员发现 Web 应用程序中的敏感信息泄漏和未授权访问点。它可以自动从 HTML 和 JavaScript 文件中提取 URL，识别敏感关键词和 URL，并进行主动探测以发现隐藏漏洞，用户可以指定敏感信息指纹规则文件，也可以使用内置指纹规则文件。
 
+## 检测思路
+在日常漏洞挖掘过程中，相信有很多小伙伴发现过未授权漏洞，然而这种未授权由于开发习惯也层出不穷，多数被泄漏在js文件中。一个未授权少则百元，多则上千上万，基于想自动化挖掘并发现这些未授权的思路下，编写了这款工具。为了更清晰、精准的解释这款工具的用法，我会拿一个具体目标举例，如本次漏洞挖掘、渗透测试的某个应用地址为：http://www.baidu.com/web/info/list</br>
+
+1、基于日常漏洞挖掘经验，可以确定该应用后续访问的地址一级目录可能都为web，也会出现一个站点挂了多个一级目录，通过前期收集把这些一级目录存下来(这里也可以直接从Burpsuite->target中获取到，根据个人经验拿到就好，当然收集的越多越好)。接下来就需要把我们访问该应用收集到的js文件，这里可以通过jsfinder等等工具，看大家习惯，把收集到的js文件全部放到jsUrl.txt文件中(后续会二开集成到Urlfinder中，实现全过程自动化)，紧接着，就会启用api发现模块，去对包含了全部js地址的文件，一个一个的请求，去发现命中了与我们前期收集到的一级目录匹配的路由/接口，同时请求的js地址也会基于白名单主域名列表，例如：</br>
+http://www.baidu.com/webUi/info/adasda.js</br>而我们js白名单主域名列表whitelist.txt中存在baidu.com这个主域名，后面才会去请求这个js，寻找敏感api。
+这一步是为了排除掉与本次漏洞挖掘无关的js文件，降低误报，</br>
+
+2、使用指定域名+命中规则Api进行fuzz，如果存在后台ApiFuzz，建议添加header头认证信息，默认使用POST请求，请求体默认为json格式的空字符，用户可以自定义，注意请求体参数若需要双引号，需要添加\\进行转移。如 --data {\\\"id\\\":\\\"1\\\"}，这里如果挖掘目标为后台，还是建议大家添加header认证头</br>
+
+3、前期有一些步骤还可以集成并自动化，同时有一些特殊挖掘场景也会在使用中不断完善、更新。</br>
+
+<b>推荐使用FFuzzApi+Enscan+JsFinder效果更佳</b><br>
+<b>同时作者也在二开Urlfinder，旨在于将前期发现js->获取敏感api->定制化扫描api，让挖掘漏洞更简单、更方便！</b>
+
 ## 功能
 
 - **URL 提取：** 自动从 HTML 和 JavaScript 文件中提取 URL。
@@ -32,12 +46,12 @@ FFuzzApi -J jsUrl.txt -i minispread -w whitelist.txt -u https://etdigital.qa.17u
 FFuzzApi --help
 ```
 
-# 未指定敏感API一级目录效果如下
+### 未指定敏感API一级目录效果如下
 ![image](https://github.com/user-attachments/assets/41e82154-14d0-4b6f-b461-cb53378fcf59)
 
 ![image](https://github.com/user-attachments/assets/cf2df8ce-042e-432d-829f-7101f3570c81)
 
-# 指定敏感API一级目录效果如下
+### 指定敏感API一级目录效果如下
 ![image](https://github.com/user-attachments/assets/624f17bc-9a6e-4496-bf1e-00de43006913)
 
 ![image](https://github.com/user-attachments/assets/e68b788f-1adc-4b2f-8bca-2529c1289d86)
@@ -48,17 +62,6 @@ FFuzzApi --help
 1. 从[发布页面](https://github.com/DarkFi5/FFuzzApi/releases)下载最新版本。
 2. 确保敏感规则匹配文件和白名单主域名文件与 `FFuzzApi.exe` 位于同一目录下。
 3. 使用命令行运行工具，并选择所需选项。
-
-## 检测思路
-在日常漏洞挖掘过程中，相信有很多小伙伴发现过未授权漏洞，一个未授权少则百元，多则上千上万，基于想自动化挖掘并发现这些未授权的思路下，编写了这款工具。例如本次漏洞挖掘、渗透测试的某个应用地址为：http://www.baidu.com/web/info/list</br>
-1、基于日常漏洞挖掘经验，可以确定该应用后续访问的地址一级目录可能都为web，也会出现一个站点挂了多个一级目录，通过前期收集把这些一级目录存下来。接下来就需要把我们访问该应用收集到的js文件，这里可以通过jsfinder等等工具，看大家习惯，把收集到的js文件全部放到jsUrl.txt文件中，紧接着，就会启用api发现模块，去对包含了全部js地址的文件，一个一个的请求，去发现命中了与我们前期收集到的一级目录匹配的路由/接口，同时请求的js地址也会基于白名单主域名列表，例如：</br>
-http://www.baidu.com/webUi/info/adasda.js</br>而我们js白名单主域名列表whitelist.txt中存在baidu.com这个主域名，后面才会去请求这个js，寻找敏感api。
-这一步是为了排除掉与本次漏洞挖掘无关的js文件，降低误报，</br>
-2、使用指定域名+命中规则Api进行fuzz，如果存在后台ApiFuzz，建议添加header头认证信息，默认使用POST请求，请求体默认为json格式的空字符，用户可以自定义，注意请求体参数若需要双引号，需要添加\\进行转移。如 --data {\\\"id\\\":\\\"1\\\"}</br>
-3、前期有一些步骤还可以集成并自动化，同时有一些特殊挖掘场景也会在使用中不断完善、更新。</br>
-
-<b>推荐使用FFuzzApi+Enscan+JsFinder效果更佳</b><br>
-<b>同时作者也在二开Urlfinder，旨在于将前期发现js->获取敏感api->定制化扫描api，让挖掘漏洞更简单、更方便！</b>
 
 
 ## 配置
