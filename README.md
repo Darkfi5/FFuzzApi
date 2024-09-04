@@ -15,6 +15,7 @@ FFuzzApi 是一个强大的命令行工具，旨在帮助安全研究人员和�
 - **主动探测：** 可配置的 URL 探测以识别敏感端点。
 - **可定制路径扫描：** 支持用户定义的父路径以进行定向扫描。
 - **指纹集成：** 集成流行的指纹库用于敏感信息检测。
+- **未授权扫描更精准: ** 指定获取敏感API一级目录，排除无用API，提高扫描效率。
 
 ## 使用示例
 
@@ -30,6 +31,17 @@ FFuzzApi -J jsUrl.txt -i minispread -w whitelist.txt -u https://etdigital.qa.17u
 FFuzzApi -J jsUrl.txt -i minispread -w whitelist.txt -u https://etdigital.qa.17u.cn/ --patterns regex_patterns.json -i ai,web -o result.csv
 FFuzzApi --help
 ```
+
+# 未指定敏感API一级目录效果如下
+![image](https://github.com/user-attachments/assets/41e82154-14d0-4b6f-b461-cb53378fcf59)
+
+![image](https://github.com/user-attachments/assets/cf2df8ce-042e-432d-829f-7101f3570c81)
+
+# 指定敏感API一级目录效果如下
+![image](https://github.com/user-attachments/assets/624f17bc-9a6e-4496-bf1e-00de43006913)
+
+![image](https://github.com/user-attachments/assets/e68b788f-1adc-4b2f-8bca-2529c1289d86)
+
 
 ## 安装
 
